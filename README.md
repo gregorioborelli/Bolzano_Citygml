@@ -52,7 +52,7 @@ docker run --rm \
   3dgi/roofer:v1.0.0-beta.5 \
   roofer \
   /data/Dsm/bolzano_combined_4.las \
-  /data/Bolzano_Buildings_Simplified.gpkg \
+  /data/Bolzano_Buildings.gpkg \
   /data/output/ \
   --lod13 \
   --lod22 \
@@ -81,7 +81,7 @@ The main input files used in the workflow are:
 
 ```text
 /data/Dsm/bolzano_combined_4.las
-/data/Bolzano_Buildings_Simplified.gpkg
+/data/Inputdata/Bolzano_Buildings.gpkg
 ```
 
 ### `bolzano_combined_4.las`

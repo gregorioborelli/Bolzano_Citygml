@@ -1,0 +1,49 @@
+{
+  "pipeline": [
+    {
+      "type": "readers.gdal",
+      "filename": "DigitalElevationModel-0.5m.tif",
+      "header": "Z"
+    },
+    {
+      "type": "filters.ferry",
+      "dimensions": "=>Classification"
+    },
+    {
+      "type": "filters.ferry",
+      "dimensions": "Z=>Z_DSM"
+    },
+    {
+      "type": "filters.hag_dem",
+      "raster": "DigitalTerrainModel-0.5m.tif"
+    },
+    {
+      "type": "filters.colorization",
+      "raster": "DigitalTerrainModel-0.5m.tif",
+      "dimensions": "DTM_Z:1:1.0"
+    },
+    {
+      "type": "filters.range",
+      "limits": "Z[-0:]"
+    },
+    {
+      "type": "filters.assign",
+      "assignment": "Classification[:]=2"
+    },
+    {
+      "type": "filters.assign",
+      "assignment": "Classification[:]=6",
+      "where": "HeightAboveGround >= 0.5"
+    },
+    { "type": "filters.outlier", "method": "statistical", "mean_k": 8, "multiplier": 2.0 },
+    { "type": "filters.range", "limits": "Classification![7:7]" },
+    { "type": "filters.range", "limits": "HeightAboveGround[-0.5:50]" },
+
+    {
+      "type": "writers.las",
+      "filename": "Bolzano.las",
+      "minor_version": 4,
+      "dataformat_id": 6
+    }
+  ]
+}
